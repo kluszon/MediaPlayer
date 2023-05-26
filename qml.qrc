@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>gui/main.qml</file>
+        <file>gui/components/ButtonImage.qml</file>
     </qresource>
 </RCC>
