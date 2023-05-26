@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>gui/main.qml</file>
         <file>gui/components/ButtonImage.qml</file>
+        <file>gui/mian_view_elements/PlayListArea.qml</file>
+        <file>gui/mian_view_elements/PlayerControl.qml</file>
     </qresource>
 </RCC>
