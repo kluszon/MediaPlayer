@@ -2,10 +2,17 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import QtQuick 2.2
+import QtQuick.Dialogs 1.0
+
+import Utils 1.0
 
 import "../components"
 
 ColumnLayout{
+
+    property TimeUtils timeUtils: TimeUtils {}
+
     width: parent.width
     height: parent.height
     spacing: 20
@@ -13,7 +20,7 @@ ColumnLayout{
         id: lvPlayList
         Layout.fillWidth: true
         Layout.fillHeight: true
-        model: 20
+        model: mediaManager.mediaListModel
         clip: true
         delegate: Rectangle{
             width: lvPlayList.width
@@ -37,7 +44,7 @@ ColumnLayout{
                 Label{
                     id: lblMediaTitleAndAuthor
                     anchors.centerIn: parent
-                    text: "Title" + " - " + "Artist"
+                    text: mediaTitle + " - " + mediaArtist
                 }
             }
             Label{
@@ -45,7 +52,7 @@ ColumnLayout{
                 anchors.right: parent.right
                 anchors.rightMargin: 20
                 anchors.verticalCenter: parent.verticalCenter
-                text: "00:00"
+                text: timeUtils.timeToString(mediaDuration, "mm:ss")
             }
             Rectangle{
                 anchors.left: parent.left
@@ -73,7 +80,7 @@ ColumnLayout{
                 id: btnAddMedia
                 source: "qrc:/icons/add"
                 onReleased: {
-                    console.log("add")
+                    fileDialog.open()
                 }
             }
             ButtonImage{
@@ -83,6 +90,19 @@ ColumnLayout{
                     console.log("delete")
                 }
             }
+        }
+    }
+
+    FileDialog {
+        id: fileDialog
+
+        title: "Please choose a file"
+        folder: shortcuts.home
+        nameFilters: [ "Media files (*.mp3 *.wav *.flac)" ]
+        onAccepted: {
+            var mediaPath = fileDialog.fileUrl.toString()
+            mediaPath = mediaPath.replace(/^(file:\/{3})/,"")         ///< Remove prefix file://
+            mediaManager.addMedia(mediaPath)
         }
     }
 }
