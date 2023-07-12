@@ -41,8 +41,16 @@ else()
     endif()
 endif()
 
-target_link_libraries(MediaPlayer
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::QuickControls2)
+include_directories(library/libtag)
+
+add_library(libtag STATIC IMPORTED)
+
+target_link_libraries(MediaPlayer PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::QuickControls2
+    tag
+    )
 
 set_target_properties(MediaPlayer PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -50,7 +58,7 @@ set_target_properties(MediaPlayer PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
-)
+    )
 
 install(TARGETS MediaPlayer
     BUNDLE DESTINATION .
