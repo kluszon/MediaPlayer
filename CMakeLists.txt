@@ -13,31 +13,35 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick QuickControls2)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick QuickControls2)
 
 set(PROJECT_SOURCES
-        source/main.cpp
-        qml.qrc
-        resources.qrc
-)
+    source/main.cpp
+    source/model/medialistmodel.h source/model/medialistmodel.cpp
+    source/model/mediafile.h source/model/mediafile.cpp
+    source/mediamanager.h source/mediamanager.cpp
+    source/time/timeutils.cpp
+    qml.qrc
+    resources.qrc
+    )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MediaPlayer
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET MediaPlayer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+        )
+    # Define target properties for Android with Qt 6 as:
+    #    set_property(TARGET MediaPlayer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+    #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
+    # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
         add_library(MediaPlayer SHARED
             ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+            )
+        # Define properties for Android with Qt 5 after find_package() calls as:
+        #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(MediaPlayer
-          ${PROJECT_SOURCES}
-        )
+            ${PROJECT_SOURCES}
+            )
     endif()
 endif()
 
