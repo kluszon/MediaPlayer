@@ -16,6 +16,7 @@ public:
     static MediaManager *getInstance();
 
     Q_INVOKABLE bool addMedia(QString path);
+    Q_INVOKABLE bool removeMedia(const int mediaIndex);
 
     MediaListModel* mediaListModel() const;
 

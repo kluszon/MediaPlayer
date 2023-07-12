@@ -44,6 +44,9 @@ public:
     // Add data:
     void addMedia(QSharedPointer<MediaFile> media);
 
+    // Remove data:
+    void removeMedia(const int mediaIndex);
+
 private:
     QList<QSharedPointer<MediaFile>> m_mediaListModel;
 };

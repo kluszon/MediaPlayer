@@ -16,6 +16,7 @@ ColumnLayout{
     width: parent.width
     height: parent.height
     spacing: 20
+
     ListView{
         id: lvPlayList
         Layout.fillWidth: true
@@ -25,8 +26,7 @@ ColumnLayout{
         delegate: Rectangle{
             width: lvPlayList.width
             height: 40
-            color:  Material.color(Material.Grey, Material.Shade800)
-
+            color: (lvPlayList.currentIndex === index) ? Material.color(Material.Purple, Material.Shade200) : Material.color(Material.Grey, Material.Shade800)
             Label{
                 id: lblMediaNumber
                 anchors.left: parent.left
@@ -62,6 +62,12 @@ ColumnLayout{
                 height: 2
                 color: Material.color(Material.Grey, Material.Shade700)
             }
+            MouseArea{
+                anchors.fill: parent
+                onReleased: {
+                    lvPlayList.currentIndex = index
+                }
+            }
         }
     }
     Rectangle{
@@ -86,8 +92,9 @@ ColumnLayout{
             ButtonImage{
                 id: btnRemoveMedia
                 source: "qrc:/icons/delete"
+                enabled: (lvPlayList.count > 0) ? true : false
                 onReleased: {
-                    console.log("delete")
+                    mediaManager.removeMedia(lvPlayList.currentIndex)
                 }
             }
         }

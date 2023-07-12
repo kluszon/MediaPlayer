@@ -121,3 +121,12 @@ void MediaListModel::addMedia(QSharedPointer<MediaFile> media)
 
     endInsertRows();
 }
+
+void MediaListModel::removeMedia(const int mediaIndex)
+{
+    beginRemoveRows(QModelIndex(), mediaIndex, mediaIndex);
+
+    m_mediaListModel.removeAt(mediaIndex);
+
+    endRemoveRows();
+}

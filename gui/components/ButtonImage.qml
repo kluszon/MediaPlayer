@@ -11,7 +11,7 @@ Image{
     ColorOverlay {
         anchors.fill: parent
         source: parent
-        color: Material.color(Material.Purple, Material.Shade200)
+        color: control.enabled ? Material.color(Material.Purple, Material.Shade200) : Material.color(Material.Grey, Material.Shade700)
     }
     states: State{
         name: "pressed"

@@ -31,6 +31,11 @@ bool MediaManager::addMedia(QString path)
     m_mediaListModel->addMedia(mediaFile);
 }
 
+bool MediaManager::removeMedia(const int mediaIndex)
+{
+    m_mediaListModel->removeMedia(mediaIndex);
+}
+
 MediaListModel *MediaManager::mediaListModel() const
 {
     return m_mediaListModel;
