@@ -25,8 +25,12 @@ ColumnLayout{
                 border.width: 2
                 border.color: "white"
                 Label{
-                    anchors.centerIn: parent
-                    text: "Album\nImage"
+                    anchors.fill: parent
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    clip: true
+                    text: mediaManager.currentPlayingMediaIndex >= 0 ? mediaManager.currentTitle + "\n- " + mediaManager.currentArtist : "Album\nImage"
                 }
             }
             Rectangle{
@@ -46,9 +50,24 @@ ColumnLayout{
         Layout.fillWidth: true
         Layout.preferredHeight: 20
         Slider{
+            id: slrMediaTimePosition
+            property int sliderScale: 1000
+
+            function calculateNewPosition(){
+                return value * sliderScale
+            }
+
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
+            value: mediaManager.mediaPlayer.currentMediaTimePosition / sliderScale
+            from: 0
+            to: mediaManager.currentMediaDuration / sliderScale
+            onPressedChanged: {
+                if(!pressed){
+                    mediaManager.setNewPosition(calculateNewPosition())
+                }
+            }
         }
     }
     Item{
@@ -67,27 +86,35 @@ ColumnLayout{
                     ButtonImage{
                         id: btnPreviose
                         source: "qrc:/icons/previose"
+                        enabled: false
                         onReleased: {
                             console.log("previose")
                         }
                     }
                     ButtonImage{
-                        id: btnPlay
-                        source: "qrc:/icons/play"
+                        id: btnPlayPause
+                        source: mediaManager.mediaPlayer.currentState ? "qrc:/icons/pause" : "qrc:/icons/play"
+                        enabled: mediaManager.mediaListModel.rowCount > 0 ? true : false
                         onReleased: {
-                            console.log("play")
+                            if(mediaManager.mediaPlayer.currentState){
+                                mediaManager.pauseMedia()
+                            }else{
+                                mediaManager.playMedia()
+                            }
                         }
                     }
                     ButtonImage{
                         id: btnStop
                         source: "qrc:/icons/stop"
+                        enabled: mediaManager.mediaListModel.rowCount > 0 ? true : false
                         onReleased: {
-                            console.log("stop")
+                            mediaManager.stopMedia()
                         }
                     }
                     ButtonImage{
                         id: btnNext
                         source: "qrc:/icons/next"
+                        enabled: false
                         onReleased: {
                             console.log("next")
                         }
@@ -108,8 +135,17 @@ ColumnLayout{
                         source: "qrc:/icons/volume-up"
                     }
                     Slider{
+                        id: slrVolume
+
+                        property int volume: mediaManager.mediaPlayer.currentVolume
+
                         Layout.fillWidth: true
-                        Layout.fillHeight: true
+                        Layout.fillHeight: true                       
+                        from: 0
+                        to: 100
+                        value: volume
+                        onValueChanged: mediaManager.mediaPlayer.setCurrentVolume(value)
+                        enabled: parent.enabled
                     }
                 }
             }

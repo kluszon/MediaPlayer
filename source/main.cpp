@@ -3,7 +3,7 @@
 #include <QQuickStyle>
 #include <QQmlContext>
 
-#include "mediamanager.h"
+#include "media/mediamanager.h"
 #include "time/timeutils.h"
 
 int main(int argc, char *argv[])

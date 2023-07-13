@@ -3,6 +3,9 @@
 
 MediaListModel::MediaListModel()
 {
+    connect(this, &QAbstractListModel::rowsInserted, this, &MediaListModel::rowCountChanged);
+    connect(this, &QAbstractListModel::rowsRemoved, this, &MediaListModel::rowCountChanged);
+    connect(this, &QAbstractListModel::modelReset, this, &MediaListModel::rowCountChanged);
 }
 
 int MediaListModel::rowCount(const QModelIndex &parent) const
@@ -27,8 +30,8 @@ QVariant MediaListModel::data(const QModelIndex &index, int role) const
                 return m_mediaListModel[index.row()]->duration();
             case MEDIA_FILE_NAME:
                 return m_mediaListModel[index.row()]->fileName();
-            case MEDIA_FILE_PATH:
-                return m_mediaListModel[index.row()]->path();
+            case MEDIA_FILE_URL:
+                return m_mediaListModel[index.row()]->url();
             case MEDIA_OBJECT:
                 return QVariant::fromValue(m_mediaListModel[index.row()]);
             case MEDIA_SELECTED:
@@ -105,7 +108,7 @@ QHash<int, QByteArray> MediaListModel::roleNames() const
     roles[MEDIA_ALBUM] = "mediaAlbum";
     roles[MEDIA_DURATION] = "mediaDuration";
     roles[MEDIA_FILE_NAME] = "mediaFileName";
-    roles[MEDIA_FILE_PATH] = "mediaFilePath";
+    roles[MEDIA_FILE_URL] = "mediaFileUrl";
     roles[MEDIA_SELECTED] = "mediaSelected";
     roles[MEDIA_EXTENSION] = "mediaExtension";
     roles[MEDIA_EXISTS] = "mediaExists";
@@ -129,4 +132,10 @@ void MediaListModel::removeMedia(const int mediaIndex)
     m_mediaListModel.removeAt(mediaIndex);
 
     endRemoveRows();
+}
+
+QList<QSharedPointer<MediaFile> > MediaListModel::mediaListModel()
+{
+    return m_mediaListModel;
+
 }

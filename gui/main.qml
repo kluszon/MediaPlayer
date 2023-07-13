@@ -9,7 +9,6 @@ import "mian_view_elements"
 
 ApplicationWindow {
     id: window
-
     minimumWidth: 600
     minimumHeight: 600
     width: 600
@@ -28,6 +27,7 @@ ApplicationWindow {
             Layout.fillHeight: true
         }
         PlayListArea{
+            id: playlist
             Layout.fillWidth: true
             Layout.fillHeight: true
         }

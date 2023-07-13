@@ -19,8 +19,12 @@ MediaFile::MediaFile(QString path)
 {
     QFileInfo mediaFileInfo(path);
 
+    m_path = path;
+
     QString filePath = mediaFileInfo.path() + QDir::separator() + mediaFileInfo.fileName();
     QUrl mediaUrl = QUrl("file://" + filePath);
+
+    m_url = mediaUrl;
 
     TagLib::FileRef fileRef(mediaUrl.path().toStdString().c_str());
 
@@ -49,9 +53,6 @@ MediaFile::MediaFile(QString path)
     if(m_album.isEmpty()){
         m_album = "--";
    }
-
-
-    qDebug() << m_path << m_title << m_album << m_artist << m_duration;
 }
 
 MediaFile::MediaFile(const MediaFile &other) :
@@ -185,4 +186,14 @@ void MediaFile::setFileSize(float newFileSize)
 const QString &MediaFile::path() const
 {
     return m_path;
+}
+
+const QUrl &MediaFile::url() const
+{
+    return m_url;
+}
+
+void MediaFile::setUrl(const QUrl &newUrl)
+{
+    m_url = newUrl;
 }

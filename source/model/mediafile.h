@@ -2,6 +2,7 @@
 #define MEDIAFILE_H
 
 #include <QObject>
+#include <QUrl>
 
 #include "tag.h"
 #include "fileref.h"
@@ -58,6 +59,9 @@ public:
 
     const QString &path() const;
 
+    const QUrl &url() const;
+    void setUrl(const QUrl &newUrl);
+
 signals:
 
     void fileNameChanged();
@@ -74,6 +78,7 @@ private:
     QString m_fileName;
     QString m_fileExtension;
     QString m_path;
+    QUrl m_url;
     QString m_title;
     QString m_artist;
     QString m_album;

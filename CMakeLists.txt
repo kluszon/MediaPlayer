@@ -9,15 +9,16 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick QuickControls2)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick QuickControls2)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick QuickControls2 Multimedia)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick QuickControls2 Multimedia)
 
 set(PROJECT_SOURCES
     source/main.cpp
     source/model/medialistmodel.h source/model/medialistmodel.cpp
     source/model/mediafile.h source/model/mediafile.cpp
-    source/mediamanager.h source/mediamanager.cpp
-    source/time/timeutils.cpp
+    source/media/mediamanager.h source/media/mediamanager.cpp
+    source/media/mediaplayer.h source/media/mediaplayer.cpp
+    source/time/timeutils.h source/time/timeutils.cpp
     qml.qrc
     resources.qrc
     )
@@ -46,6 +47,7 @@ else()
 endif()
 
 include_directories(library/libtag)
+include_directories(source)
 
 add_library(libtag STATIC IMPORTED)
 
@@ -53,6 +55,7 @@ target_link_libraries(MediaPlayer PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::QuickControls2
+    Qt${QT_VERSION_MAJOR}::Multimedia
     tag
     )
 
