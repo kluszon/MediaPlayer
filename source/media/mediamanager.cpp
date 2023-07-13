@@ -39,6 +39,10 @@ bool MediaManager::addMedia(QString path)
 
 bool MediaManager::removeMedia(const int mediaIndex)
 {
+    if(mediaIndex == currentPlayingMediaIndex()){
+        stopMedia();
+    }
+
     m_mediaListModel->removeMedia(mediaIndex);
 }
 
