@@ -24,6 +24,7 @@ public:
 
     Q_INVOKABLE bool addMedia(QString path);
     Q_INVOKABLE bool removeMedia(const int mediaIndex);
+    Q_INVOKABLE bool playCurrentMedia(int newPosition = 0);
     Q_INVOKABLE void playMedia(int newPosition = 0);
     Q_INVOKABLE void pauseMedia();
     Q_INVOKABLE void stopMedia();

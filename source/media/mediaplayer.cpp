@@ -30,8 +30,8 @@ void MediaPlayer::createPlayList()
     m_playList->setPlaybackMode(QMediaPlaylist::Sequential);
     setPlaylist(m_playList);
 
-    connect(m_playList, SIGNAL(mediaInserted(int, int)), this , SLOT(updateAutoplayAndRepeat(int, int)));
-    connect(m_playList, SIGNAL(mediaRemoved(int, int)), this , SLOT(updateAutoplayAndRepeat(int, int)));
+    connect(m_playList, SIGNAL(mediaInserted(int,int)), this , SLOT(updateAutoplayAndRepeat(int,int)));
+    connect(m_playList, SIGNAL(mediaRemoved(int,int)), this , SLOT(updateAutoplayAndRepeat(int,int)));
 }
 
 void MediaPlayer::setMediaPath(QString mediaFilePath)
@@ -114,7 +114,7 @@ void MediaPlayer::updatePlayList(MediaListModel *mediaListModel)
     oldPlayList->disconnect();
     oldPlayList->deleteLater();
 
-    connect(m_playList, SIGNAL(currentMediaChanged(const QMediaContent&)), MediaManager::getInstance(), SLOT(updateCurrentIndex(const QMediaContent&)));
+    connect(m_playList, SIGNAL(currentMediaChanged(QMediaContent&)), MediaManager::getInstance(), SLOT(updateCurrentIndex(QMediaContent&)));
     connect(m_playList, SIGNAL(playbackModeChanged(QMediaPlaylist::PlaybackMode)), MediaManager::getInstance(), SLOT(updateNextIndex(QMediaPlaylist::PlaybackMode)));
 }
 

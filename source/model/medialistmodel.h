@@ -25,14 +25,11 @@ public:
         MEDIA_ALBUM,                        ///< album
         MEDIA_DURATION,                     ///< duration
         MEDIA_FILE_NAME,                    ///< file name
-        MEDIA_FILE_URL,                    ///< file url
+        MEDIA_FILE_URL,                     ///< file url
         MEDIA_OBJECT,                       ///< media object
-        MEDIA_SELECTED,
-        MEDIA_EXTENSION,
+        MEDIA_SELECTED,                     ///< media selected
+        MEDIA_EXTENSION,                    ///< media extension
         MEDIA_EXISTS,
-        MEDIA_START_DELAY,
-        MEDIA_START_TIME,
-        MEDIA_END_TIME,
         MEDIA_FILE_SIZE
     };
     Q_ENUM(Roles)

@@ -76,12 +76,6 @@ bool MediaListModel::setData(const QModelIndex &index, const QVariant &value, in
         break;
         case MEDIA_SELECTED:{
             m_mediaListModel[index.row()]->setSelected(value.toBool());
-
-//            if(value.toBool()){
-//                emit rowSelected(index.row(), true);
-//            }else{
-//                emit rowSelected(index.row(), false);
-//            }
         }
         break;
         case MEDIA_EXISTS:{

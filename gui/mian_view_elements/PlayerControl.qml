@@ -86,9 +86,9 @@ ColumnLayout{
                     ButtonImage{
                         id: btnPreviose
                         source: "qrc:/icons/previose"
-                        enabled: false
+                        enabled: (mediaManager.currentPlayingMediaIndex > 0) ? true : false
                         onReleased: {
-                            console.log("previose")
+                            mediaManager.previoseMedia()
                         }
                     }
                     ButtonImage{
@@ -99,7 +99,7 @@ ColumnLayout{
                             if(mediaManager.mediaPlayer.currentState){
                                 mediaManager.pauseMedia()
                             }else{
-                                mediaManager.playMedia()
+                                mediaManager.playCurrentMedia()
                             }
                         }
                     }
@@ -114,9 +114,9 @@ ColumnLayout{
                     ButtonImage{
                         id: btnNext
                         source: "qrc:/icons/next"
-                        enabled: false
+                        enabled: ((mediaManager.mediaListModel.rowCount > 1) && (mediaManager.currentPlayingMediaIndex + 1 < mediaManager.mediaListModel.rowCount)) ? true : false
                         onReleased: {
-                            console.log("next")
+                            mediaManager.nextMedia()
                         }
                     }
                 }

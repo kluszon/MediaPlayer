@@ -42,10 +42,15 @@ bool MediaManager::removeMedia(const int mediaIndex)
     m_mediaListModel->removeMedia(mediaIndex);
 }
 
-void MediaManager::playMedia(int newPosition)
+bool MediaManager::playCurrentMedia(int newPosition)
 {
     setCurrentPlayingMediaIndex(currentSelectedMediaIndex());
 
+    playMedia(newPosition);
+}
+
+void MediaManager::playMedia(int newPosition)
+{
     if(m_mediaPlayer->state() == QMediaPlayer::PlayingState){
         stopMedia();
     }
@@ -78,11 +83,18 @@ void MediaManager::stopMedia()
 
 void MediaManager::previoseMedia()
 {
+    if(currentPlayingMediaIndex() > 0){
+        setCurrentPlayingMediaIndex(currentPlayingMediaIndex() - 1);
+        playMedia();
+    }
 }
 
 void MediaManager::nextMedia()
 {
-
+    if(currentPlayingMediaIndex() < m_mediaListModel->rowCount()){
+        setCurrentPlayingMediaIndex(currentPlayingMediaIndex() + 1);
+        playMedia();
+    }
 }
 
 void MediaManager::setNewPosition(int newTimePosition)
