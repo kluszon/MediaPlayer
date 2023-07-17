@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="volume-up">resources/icons/volume-up.svg</file>
+        <file alias="volume-off">resources/icons/volume-off.svg</file>
+        <file alias="stop">resources/icons/stop.svg</file>
+        <file alias="previose">resources/icons/previous.svg</file>
+        <file alias="play">resources/icons/play.svg</file>
+        <file alias="pause">resources/icons/pause.svg</file>
+        <file alias="next">resources/icons/next.svg</file>
+        <file alias="delete">resources/icons/delete.svg</file>
+        <file alias="add">resources/icons/add.svg</file>
+    </qresource>
+</RCC>
