@@ -22,7 +22,12 @@ MediaFile::MediaFile(QString path)
     m_path = path;
 
     QString filePath = mediaFileInfo.path() + QDir::separator() + mediaFileInfo.fileName();
+
+#ifdef Q_OS_WIN
+    QUrl mediaUrl = QUrl("file:///" + filePath);
+#else
     QUrl mediaUrl = QUrl("file://" + filePath);
+#endif
 
     m_url = mediaUrl;
 
